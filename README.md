@@ -1,6 +1,11 @@
 # 📝 Task Management API
 
-A **RESTful API** built with **Express.js** and **MongoDB** to manage tasks, allowing users to add, update, fetch, and delete tasks.
+A RESTful API built with Express.js and MongoDB for managing tasks. Features user-specific task operations with JWT authentication and MongoDB data persistence.
+
+Node.js
+Express.js
+MongoDB
+License
 
 ## 🚀 Features
 - ✅ **Add a Task** with title and category
@@ -32,9 +37,7 @@ PORT=5000
 npm start
 📡 API Endpoints
 ➕ Add a Task
-http
-Copy
-Edit
+ 
 POST /add-task
 Request Body:
 
@@ -103,7 +106,7 @@ Mongoose - ODM for MongoDB
 Dotenv - Environment Variable Management
 🏗️ Project Structure
  
-📂 your-repo
+📂 Task-Management-Client-Apps
 │── 📁 node_modules
 │── 📁 routes
 │── 📁 models
@@ -112,6 +115,8 @@ Dotenv - Environment Variable Management
 │── 📄 package.json
 │── 📄 README.md
 │── 📄 .env
+
+
 🏆 Contributing
 Contributions are welcome! Feel free to submit a PR or open an issue.
 
