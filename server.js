@@ -61,6 +61,20 @@ async function connectToDB() {
       });
 
 
+      
+      
+    //    Added API route to fetch tasks by user email
+    app.get("/tasks/:user_email", async (req, res) => {
+      try {
+        const user_email = req.params.user_email;
+
+        const tasks = await taskCollection.find({ user_email: user_email }).toArray();
+        res.send(tasks);
+      } catch (error) {
+        res.status(500).send({ error: "Failed to fetch tasks" });
+      }
+    });
+
 
   
 
