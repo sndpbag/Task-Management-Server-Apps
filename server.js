@@ -76,6 +76,31 @@ async function connectToDB() {
     });
 
 
+
+      //   Updated API route to modify task status by title
+      app.put("/updateTask", async (req, res) => {
+
+        const { category, title } = req.body;
+        const cleanedTitle = title.replace(/^task-/, "").replace(/-\d+$/, "");
+        console.log(cleanedTitle, category)
+  
+        try {
+          const result = await taskCollection.updateOne(
+            { title: cleanedTitle }, // Convert id to ObjectId
+            { $set: { category } } // Update category field
+          );
+  
+  
+          if (result.modifiedCount > 0) {
+            res.json({ success: true, message: "Task updated successfully!" });
+          } else {
+            res.status(400).json({ success: false, message: "No changes made." });
+          }
+        } catch (error) {
+          res.status(500).json({ success: false, message: "Server error." });
+        }
+      });
+
   
 
 
