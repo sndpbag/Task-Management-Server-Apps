@@ -45,6 +45,20 @@ async function connectToDB() {
 
 
 
+      // ✅ API Route to Add Task
+      app.post("/add-task", async (req, res) => {
+        try {
+          const task = req.body;
+          if (!task.title || !task.category) {
+            return res.status(400).send({ message: "Title and Category are required" });
+          }
+  
+          const result = await taskCollection.insertOne(task);
+          res.status(201).send({ message: "Task added", taskId: result.insertedId });
+        } catch (error) {
+          res.status(500).send({ error: "Failed to add task" });
+        }
+      });
 
 
 
