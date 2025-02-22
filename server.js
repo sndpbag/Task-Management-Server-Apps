@@ -101,6 +101,29 @@ async function connectToDB() {
         }
       });
 
+
+
+          //  Added API route to delete a task by title
+    app.delete("/deleteTask", async (req, res) => {
+      try {
+        const { title } = req.body;
+
+
+        const result = await taskCollection.deleteOne({ title });
+
+        console.log("Delete Result:", result);
+
+        if (result.deletedCount > 0) {
+          res.json({ success: true, message: "Task deleted successfully!" });
+        } else {
+          res.status(404).json({ success: false, message: "Task not found" });
+        }
+      } catch (error) {
+        console.error("Error deleting task:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+      }
+    })
+
   
 
 
