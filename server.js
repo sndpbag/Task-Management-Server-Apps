@@ -44,6 +44,35 @@ async function connectToDB() {
     const taskCollection = database.collection("task");
 
 
+    //  add user when google login at first time
+app.post("/add-user",async(req,res)=>{
+  const data = req.body;
+  console.log(data);
+  if(!data.email){
+    return res.status(400).send({ message: "Email is required" });
+  }
+
+  //  chack user already exist 
+
+  const userExist = await userCollection.findOne({email:data.email});
+  if(userExist)
+  {
+    return res.send({ message: "Welcome Back again" });
+  }
+
+  const result = await userCollection.insertOne(data);
+ if(result.insertedId)
+ {
+  res.status(201).send({ message: "Your Accoun is Creating..", userId: result.insertedId });
+ }
+  
+})
+
+
+
+
+
+
 
       // ✅ API Route to Add Task
       app.post("/add-task", async (req, res) => {
