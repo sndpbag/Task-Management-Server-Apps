@@ -153,6 +153,33 @@ app.post("/add-user",async(req,res)=>{
       }
     })
 
+
+    //  fetch single data for update task record
+    app.put('/task/single/fetch',async(req,res)=>{
+  try {
+    
+    const  {title} = req.body;
+
+    if(!title)
+    {
+      return res.status(400).send({ message: "Title is required" });
+    }
+
+
+     const result = await taskCollection.findOne({title:title});
+     if(!result)
+     {
+      return res.status(404).json({ error: "Task not found" });
+     }
+     
+     return res.status(200).json(result);
+     
+  } catch (error) {
+    console.error("Error fetching task:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+    })
+
   
 
 
