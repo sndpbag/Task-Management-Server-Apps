@@ -155,7 +155,7 @@ app.post("/add-user",async(req,res)=>{
 
 
     //  fetch single data for update task record
-    app.put('/task/single/fetch',async(req,res)=>{
+    app.post('/task/single/fetch',async(req,res)=>{
   try {
     
     const  {title} = req.body;
@@ -178,6 +178,40 @@ app.post("/add-user",async(req,res)=>{
     console.error("Error fetching task:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+    })
+
+
+    // update task record
+
+    app.put('/update/task',async(req,res)=>{
+   try {
+    const { title, category, description,endDateTime } = req.body; // Destructure only required fields
+    const queary = {title:title}; //// Find task by title
+
+    const updateDocument = {
+      $set: {
+           title :title,
+           category : category,
+           description : description,
+           endDateTime:endDateTime,
+   
+      },
+   };
+
+
+    const result = await taskCollection.updateOne(queary,updateDocument);
+   if(result.modifiedCount > 0)
+   {
+    return res.json({success: true, 'message':'Update successfully Tasks'})
+   }
+   else{
+   return res.json({ success: false, message: "Update Not successfully!" });
+   }
+    
+   } catch (error) {
+  return  res.status(500).json({ success: false, message: "Internal Server Error",error:error});
+
+   }
     })
 
   
