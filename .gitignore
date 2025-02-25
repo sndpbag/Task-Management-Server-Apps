@@ -36,3 +36,4 @@ coverage/
 # Database files
 *.sqlite
 *.sqlite3
+.vercel
