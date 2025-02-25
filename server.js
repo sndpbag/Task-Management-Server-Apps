@@ -3,6 +3,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors');
 const app = express();
 require('dotenv').config()
+ 
 
 const port = process.env.PORT || 5000;
 
@@ -135,10 +136,13 @@ app.post("/add-user",async(req,res)=>{
           //  Added API route to delete a task by title
     app.delete("/deleteTask", async (req, res) => {
       try {
-        const { title } = req.body;
+        const { id}  = req.body;
 
+       if (!id) {
+          return res.status(400).json({ message: "ID is required" });
+        }
 
-        const result = await taskCollection.deleteOne({ title });
+        const result = await taskCollection.deleteOne({ _id:new ObjectId(id) });
 
         console.log("Delete Result:", result);
 
@@ -158,15 +162,15 @@ app.post("/add-user",async(req,res)=>{
     app.post('/task/single/fetch',async(req,res)=>{
   try {
     
-    const  {title} = req.body;
+    const  {id} = req.body;
 
-    if(!title)
+    if(!id)
     {
       return res.status(400).send({ message: "Title is required" });
     }
 
 
-     const result = await taskCollection.findOne({title:title});
+     const result = await taskCollection.findOne({_id:new ObjectId(id)});
      if(!result)
      {
       return res.status(404).json({ error: "Task not found" });
@@ -185,9 +189,10 @@ app.post("/add-user",async(req,res)=>{
 
     app.put('/update/task',async(req,res)=>{
    try {
-    const { title, category, description,endDateTime } = req.body; // Destructure only required fields
-    const queary = {title:title}; //// Find task by title
+    const { id, title, category, description,endDateTime } = req.body; // Destructure only required fields
+    const queary = {_id:new ObjectId(id)}; //// Find task by id
 
+   
     const updateDocument = {
       $set: {
            title :title,
