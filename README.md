@@ -129,6 +129,9 @@ For any questions, reach out to me at:
 🔗 **[GitHub Repository](https://github.com/sndpbag/Task-Management-Client-Apps.git)**
 
 
+<!--  for vercel ignoure -->
+await client.connect();
+
  
 
 ---

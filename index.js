@@ -36,7 +36,7 @@ let collection;
 // Connect to MongoDB once at the start of the app and keep the connection open
 async function connectToDB() {
   try {
-    await client.connect();
+    // await client.connect();
     console.log("Connected to MongoDB!");
 
     // Set the collection after connecting to MongoDB
