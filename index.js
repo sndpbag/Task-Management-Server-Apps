@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 // Use middleware
 app.use(cors(
   {
-    origin: "http://localhost:5173", // Allow only your frontend
+    origin: "https://singup-18412.web.app", // Allow only your frontend
     credentials: true // Allow cookies, if needed
   }
 ));
